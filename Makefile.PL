@@ -2,7 +2,8 @@ use inc::Module::Install;
 name 'Aplon-Model-OpenID-RelyingParty';
 all_from 'lib/Aplon/Model/OpenID/RelyingParty.pm';
 
- requires 'Aplon';
+requires 'Aplon';
+requires 'OpenID::Lite';
 
 tests 't/*.t';
 author_tests 'xt';
