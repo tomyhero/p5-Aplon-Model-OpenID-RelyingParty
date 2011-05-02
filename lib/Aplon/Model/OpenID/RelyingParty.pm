@@ -4,7 +4,7 @@ use Mouse;
 extends 'Aplon';
 with 'Aplon::Validator::Simple';
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use OpenID::Lite::RelyingParty;
 use OpenID::Lite::RelyingParty::Store::OnMemory;
@@ -36,6 +36,7 @@ has return_to => (
     required => 1,
 );
 
+has 'ui' => ( is => 'rw');
 
 sub BUILD {
     my $self = shift;
@@ -81,6 +82,10 @@ sub login {
             code => "OPENID_FAILED" ,
             custom_invalid => [ 'openid_begin_faild' ],
         });
+    }
+
+    if($self->ui){
+        $checkid_request->add_extension( $self->ui );
     }
 
     my $redirect_url = $checkid_request->redirect_url(
