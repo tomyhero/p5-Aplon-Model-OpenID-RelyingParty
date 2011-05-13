@@ -102,10 +102,7 @@ sub complete {
     my $openid = $self->openid;
     my $res = $openid->complete( $args , $self->return_to );
     $self->session->remove($self->openid_store_key);
-    if ( $res->is_success ) {
-        $self->do_complate($res);
-    }
-    else {
+    if ( !$res->is_success ) {
         #warn $res->type;
         #warn $res->message;
         $self->abort_with({ 
@@ -115,7 +112,8 @@ sub complete {
 
         });
     }
-    return 1;
+
+    return $self->do_complate($res);
 }
 
 sub do_complate {
