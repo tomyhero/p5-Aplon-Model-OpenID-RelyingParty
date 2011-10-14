@@ -124,7 +124,7 @@ sub do_complate {
 
 sub openid_store_key {
     my $self = shift;
-    my $key = ref $self . '::__openid_store';
+    my $key = ref ($self) . '::__openid_store';
 }
 
 __PACKAGE__->meta->make_immutable();
